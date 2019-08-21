@@ -1,0 +1,12 @@
+language: c
+compiler: clang
+include:
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - clang
+      env:
+         - MATRIX_EVAL="CC=clang && CXX=clang++"
