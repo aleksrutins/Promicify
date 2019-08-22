@@ -6,7 +6,7 @@ namespace Promicify {
         void defNext(T val) {};
         std::function<void *(T)> next;
     public:
-        Promise(std::function<void(Promise<T>::Resolve, Promise<T>::Reject)> fn): next(defNext) {
+        Promise(std::function<void(typename Promise<T>::Resolve, typename Promise<T>::Reject)> fn): next(defNext) {
             T value;
             void *error;
             struct fns {
@@ -16,7 +16,7 @@ namespace Promicify {
                 static void reject(void *err) {
                     error = err;
                 }
-            }
+            };
             std::thread thrd([&]() {
                 try {
                     fn(&fns::resolve, &fns::reject);
@@ -26,7 +26,7 @@ namespace Promicify {
                 if(error) {
                     return;
                 }
-                Promise([value]() {next(value)});
+                Promise([value, this]() {next(value);});
             });
             thrd.join();
         }
