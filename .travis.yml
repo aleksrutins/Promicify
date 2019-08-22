@@ -1,6 +1,6 @@
 language: c
 compiler: clang
-install: make install
+install: sudo make install
 script: make test && ./test
 include:
   - os: linux
