@@ -1,12 +1,14 @@
 language: c
 compiler: clang
+install: make install
+script: make test && ./test
 include:
-    - os: linux
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - clang
-      env:
-         - MATRIX_EVAL="CC=clang && CXX=clang++"
+  - os: linux
+    addons:
+      apt:
+        sources:
+          - ubuntu-toolchain-r-test
+        packages:
+          - clang
+    env:
+      - MATRIX_EVAL="CC=clang && CXX=clang++"
